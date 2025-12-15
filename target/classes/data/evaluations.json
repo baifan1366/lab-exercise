@@ -1,0 +1,98 @@
+{
+  "evaluations": [
+    {
+      "id": 1,
+      "evaluatorId": 101,
+      "registrationId": 1,
+      "problemClarity": 22,
+      "methodology": 20,
+      "results": 18,
+      "presentationQuality": 23,
+      "comments": "Excellent research with clear problem definition. The methodology is sound, though results could be more comprehensive. Outstanding presentation skills.",
+      "submitted": true,
+      "submittedAt": "2024-12-10T14:30:00"
+    },
+    {
+      "id": 2,
+      "evaluatorId": 102,
+      "registrationId": 1,
+      "problemClarity": 21,
+      "methodology": 22,
+      "results": 19,
+      "presentationQuality": 21,
+      "comments": "Well-structured research with innovative approach. Good use of deep learning techniques. Minor improvements needed in experimental validation.",
+      "submitted": true,
+      "submittedAt": "2024-12-10T15:45:00"
+    },
+    {
+      "id": 3,
+      "evaluatorId": 103,
+      "registrationId": 2,
+      "problemClarity": 20,
+      "methodology": 23,
+      "results": 21,
+      "presentationQuality": 22,
+      "comments": "Comprehensive study of microservices patterns. Excellent methodology and practical insights. Well-presented with clear examples.",
+      "submitted": true,
+      "submittedAt": "2024-12-11T10:20:00"
+    },
+    {
+      "id": 4,
+      "evaluatorId": 101,
+      "registrationId": 2,
+      "problemClarity": 19,
+      "methodology": 21,
+      "results": 20,
+      "presentationQuality": 20,
+      "comments": "Good research on software architecture. The case studies are valuable. Consider expanding the comparison with monolithic approaches.",
+      "submitted": true,
+      "submittedAt": "2024-12-11T11:30:00"
+    },
+    {
+      "id": 5,
+      "evaluatorId": 102,
+      "registrationId": 3,
+      "problemClarity": 23,
+      "methodology": 24,
+      "results": 22,
+      "presentationQuality": 24,
+      "comments": "Outstanding research in robotics and AI. Innovative use of reinforcement learning. Excellent poster design and presentation.",
+      "submitted": true,
+      "submittedAt": "2024-12-12T09:15:00"
+    },
+    {
+      "id": 6,
+      "evaluatorId": 103,
+      "registrationId": 3,
+      "problemClarity": 22,
+      "methodology": 23,
+      "results": 21,
+      "presentationQuality": 23,
+      "comments": "Impressive work on autonomous navigation. The curriculum learning approach is novel. Well-documented experimental results.",
+      "submitted": true,
+      "submittedAt": "2024-12-12T10:00:00"
+    },
+    {
+      "id": 7,
+      "evaluatorId": 101,
+      "registrationId": 5,
+      "problemClarity": 18,
+      "methodology": 19,
+      "results": 17,
+      "presentationQuality": 20,
+      "comments": "Interesting blockchain application. The security analysis is thorough. Consider more real-world validation scenarios.",
+      "submitted": false
+    },
+    {
+      "id": 8,
+      "evaluatorId": 103,
+      "registrationId": 5,
+      "problemClarity": 20,
+      "methodology": 18,
+      "results": 16,
+      "presentationQuality": 19,
+      "comments": "Good foundation for blockchain research. Zero-knowledge proof implementation is promising. Needs more performance benchmarks.",
+      "submitted": false
+    }
+  ]
+}

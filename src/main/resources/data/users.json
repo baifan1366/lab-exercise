@@ -1,0 +1,102 @@
+{
+  "students": [
+    {
+      "studentId": "S2024001",
+      "program": "Computer Science",
+      "supervisor": "Prof. Li Wei",
+      "id": 1,
+      "username": "student1",
+      "password": "password123",
+      "name": "Zhang San",
+      "email": "zhangsan@fci.edu",
+      "role": "STUDENT"
+    },
+    {
+      "studentId": "S2024002",
+      "program": "Software Engineering",
+      "supervisor": "Prof. Wang Ming",
+      "id": 2,
+      "username": "student2",
+      "password": "password123",
+      "name": "Li Si",
+      "email": "lisi@fci.edu",
+      "role": "STUDENT"
+    },
+    {
+      "studentId": "S2024003",
+      "program": "Artificial Intelligence",
+      "supervisor": "Prof. Chen Hua",
+      "id": 3,
+      "username": "student3",
+      "password": "password123",
+      "name": "Wang Wu",
+      "email": "wangwu@fci.edu",
+      "role": "STUDENT"
+    },
+    {
+      "studentId": "S2024004",
+      "program": "Data Science",
+      "supervisor": "Prof. Li Wei",
+      "id": 4,
+      "username": "student4",
+      "password": "password123",
+      "name": "Zhao Liu",
+      "email": "zhaoliu@fci.edu",
+      "role": "STUDENT"
+    },
+    {
+      "studentId": "S2024005",
+      "program": "Computer Science",
+      "supervisor": "Prof. Wang Ming",
+      "id": 5,
+      "username": "student5",
+      "password": "password123",
+      "name": "Sun Qi",
+      "email": "sunqi@fci.edu",
+      "role": "STUDENT"
+    }
+  ],
+  "evaluators": [
+    {
+      "department": "Computer Science",
+      "expertise": "Machine Learning",
+      "id": 101,
+      "username": "evaluator1",
+      "password": "password123",
+      "name": "Prof. Li Wei",
+      "email": "liwei@fci.edu",
+      "role": "EVALUATOR"
+    },
+    {
+      "department": "Software Engineering",
+      "expertise": "Software Architecture",
+      "id": 102,
+      "username": "evaluator2",
+      "password": "password123",
+      "name": "Prof. Wang Ming",
+      "email": "wangming@fci.edu",
+      "role": "EVALUATOR"
+    },
+    {
+      "department": "Artificial Intelligence",
+      "expertise": "Deep Learning",
+      "id": 103,
+      "username": "evaluator3",
+      "password": "password123",
+      "name": "Prof. Chen Hua",
+      "email": "chenhua@fci.edu",
+      "role": "EVALUATOR"
+    }
+  ],
+  "coordinators": [
+    {
+      "staffId": "COORD001",
+      "id": 201,
+      "username": "admin",
+      "password": "admin123",
+      "name": "Dr. Liu Fang",
+      "email": "liufang@fci.edu",
+      "role": "COORDINATOR"
+    }
+  ]
+}

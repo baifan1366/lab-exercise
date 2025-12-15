@@ -1,0 +1,76 @@
+{
+  "sessions": [
+    {
+      "id": 1,
+      "date": "2025-01-15",
+      "startTime": "09:00:00",
+      "endTime": "12:00:00",
+      "venue": "Conference Room A",
+      "type": "ORAL",
+      "capacity": 20,
+      "registered": 3,
+      "status": "OPEN",
+      "description": "Morning oral presentation session for Computer Science and AI research topics"
+    },
+    {
+      "id": 2,
+      "date": "2025-01-15",
+      "startTime": "14:00:00",
+      "endTime": "17:00:00",
+      "venue": "Conference Room B",
+      "type": "POSTER",
+      "capacity": 30,
+      "registered": 2,
+      "status": "OPEN",
+      "description": "Afternoon poster presentation session for all research areas"
+    },
+    {
+      "id": 3,
+      "date": "2025-01-16",
+      "startTime": "09:00:00",
+      "endTime": "12:00:00",
+      "venue": "Main Auditorium",
+      "type": "ORAL",
+      "capacity": 15,
+      "registered": 0,
+      "status": "OPEN",
+      "description": "Morning oral presentation session for Software Engineering research"
+    },
+    {
+      "id": 4,
+      "date": "2025-01-16",
+      "startTime": "14:00:00",
+      "endTime": "17:00:00",
+      "venue": "Exhibition Hall",
+      "type": "POSTER",
+      "capacity": 25,
+      "registered": 0,
+      "status": "OPEN",
+      "description": "Afternoon poster session featuring Data Science and Machine Learning projects"
+    },
+    {
+      "id": 5,
+      "date": "2025-01-17",
+      "startTime": "09:00:00",
+      "endTime": "12:00:00",
+      "venue": "Conference Room A",
+      "type": "ORAL",
+      "capacity": 10,
+      "registered": 10,
+      "status": "FULL",
+      "description": "Final oral presentation session - fully booked"
+    },
+    {
+      "id": 6,
+      "date": "2025-01-17",
+      "startTime": "14:00:00",
+      "endTime": "16:00:00",
+      "venue": "Main Auditorium",
+      "type": "ORAL",
+      "capacity": 20,
+      "registered": 0,
+      "status": "CLOSED",
+      "description": "Closing ceremony and award presentation"
+    }
+  ]
+}

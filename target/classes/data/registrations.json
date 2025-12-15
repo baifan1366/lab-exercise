@@ -1,0 +1,60 @@
+{
+  "registrations": [
+    {
+      "id": 1,
+      "studentId": 1,
+      "sessionId": 1,
+      "researchTitle": "Deep Learning Approaches for Natural Language Processing",
+      "abstractText": "This research explores advanced deep learning techniques for natural language processing tasks. We propose a novel transformer-based architecture that achieves state-of-the-art results on multiple benchmark datasets. Our approach combines attention mechanisms with hierarchical encoding to better capture long-range dependencies in text.",
+      "supervisorName": "Prof. Li Wei",
+      "presentationType": "ORAL",
+      "status": "APPROVED",
+      "createdAt": "2024-12-01T10:30:00"
+    },
+    {
+      "id": 2,
+      "studentId": 2,
+      "sessionId": 1,
+      "researchTitle": "Microservices Architecture Patterns for Scalable Applications",
+      "abstractText": "This study investigates design patterns and best practices for building scalable microservices architectures. We analyze various communication patterns, service discovery mechanisms, and fault tolerance strategies. Our findings provide practical guidelines for software architects designing distributed systems.",
+      "supervisorName": "Prof. Wang Ming",
+      "presentationType": "ORAL",
+      "status": "APPROVED",
+      "filePath": "uploads/presentation_2.pptx",
+      "createdAt": "2024-12-02T14:15:00"
+    },
+    {
+      "id": 3,
+      "studentId": 3,
+      "sessionId": 2,
+      "researchTitle": "Reinforcement Learning for Autonomous Robot Navigation",
+      "abstractText": "We present a reinforcement learning framework for autonomous robot navigation in complex environments. Our approach uses deep Q-learning combined with curriculum learning to enable robots to navigate safely and efficiently. Experimental results demonstrate significant improvements over traditional path planning algorithms.",
+      "supervisorName": "Prof. Chen Hua",
+      "presentationType": "POSTER",
+      "status": "APPROVED",
+      "createdAt": "2024-12-03T09:45:00"
+    },
+    {
+      "id": 4,
+      "studentId": 4,
+      "sessionId": 2,
+      "researchTitle": "Big Data Analytics for Healthcare Prediction Models",
+      "abstractText": "This research applies big data analytics techniques to develop predictive models for healthcare outcomes. We utilize machine learning algorithms on large-scale electronic health records to predict patient readmission risks. Our models achieve high accuracy while maintaining interpretability for clinical use.",
+      "supervisorName": "Prof. Li Wei",
+      "presentationType": "POSTER",
+      "status": "PENDING",
+      "createdAt": "2024-12-05T16:20:00"
+    },
+    {
+      "id": 5,
+      "studentId": 5,
+      "sessionId": 1,
+      "researchTitle": "Blockchain-based Secure Data Sharing Framework",
+      "abstractText": "We propose a blockchain-based framework for secure and transparent data sharing across organizations. Our solution addresses privacy concerns through zero-knowledge proofs while maintaining data integrity and auditability. The framework is evaluated through a prototype implementation in healthcare data exchange scenarios.",
+      "supervisorName": "Prof. Wang Ming",
+      "presentationType": "ORAL",
+      "status": "APPROVED",
+      "createdAt": "2024-12-06T11:00:00"
+    }
+  ]
+}
