@@ -1,230 +1,189 @@
-Seminar Management System – Complete Role-Based Design
-1. System Overview
+# Seminar Management System
+
+FCI Postgraduate Academic Research Seminar Management System - A Java Swing desktop application.
+
+## Overview
+
+This system manages the complete workflow of academic seminars, including session scheduling, student registration, evaluation scoring, and award calculation.
+
+### Role System
+
+| Role | Login Required | Permissions |
+|------|----------------|-------------|
+| Guest | No | View seminar schedule and session availability |
+| Student | Yes | Register for seminars, upload presentation materials, view status |
+| Evaluator | Yes | View assigned presentations, submit evaluations |
+| Coordinator | Yes | Full management (users, sessions, assignments, awards, reports) |
+
+## Tech Stack
+
+### Core Technologies
+- **Java 17** - Programming language
+- **Java Swing** - GUI framework
+- **Maven** - Build and dependency management
+
+### Dependencies
+
+| Library | Version | Purpose |
+|---------|---------|---------|
+| [Gson](https://github.com/google/gson) | 2.10.1 | JSON serialization/deserialization for data persistence |
+
+### Maven Plugins
+
+| Plugin | Version | Purpose |
+|--------|---------|---------|
+| maven-compiler-plugin | 3.11.0 | Java compilation configuration |
+| maven-jar-plugin | 3.3.0 | JAR packaging with main class entry point |
+
+## Project Structure
+
+```
+src/
+├── main/
+│   ├── java/com/fci/seminar/
+│   │   ├── Main.java                 # Application entry point
+│   │   ├── model/                    # Data models
+│   │   │   ├── User.java, Student.java, Evaluator.java, Coordinator.java
+│   │   │   ├── Session.java, Registration.java, Evaluation.java, Award.java
+│   │   │   └── enums/                # Enum types
+│   │   ├── repository/               # Data access layer
+│   │   │   ├── UserRepository.java
+│   │   │   ├── SessionRepository.java
+│   │   │   ├── RegistrationRepository.java
+│   │   │   └── EvaluationRepository.java
+│   │   ├── service/                  # Business logic layer
+│   │   │   ├── AuthService.java      # Authentication service
+│   │   │   ├── SessionService.java   # Session management
+│   │   │   ├── RegistrationService.java  # Registration management
+│   │   │   ├── EvaluationService.java    # Evaluation management
+│   │   │   ├── AwardService.java     # Award calculation
+│   │   │   └── ReportService.java    # Report generation
+│   │   ├── ui/                       # View layer
+│   │   │   ├── MainFrame.java        # Main window
+│   │   │   ├── components/           # Common UI components
+│   │   │   ├── dialogs/              # Dialog windows
+│   │   │   └── panels/               # Feature panels
+│   │   │       ├── guest/            # Guest panels
+│   │   │       ├── student/          # Student panels
+│   │   │       ├── evaluator/        # Evaluator panels
+│   │   │       └── coordinator/      # Coordinator panels
+│   │   └── util/                     # Utility classes
+│   │       ├── DataManager.java      # JSON data management
+│   │       ├── FileUtils.java        # File operations
+│   │       ├── UIConstants.java      # UI constants
+│   │       └── UIUtils.java          # UI utilities
+│   └── resources/
+│       └── data/                     # JSON data files
+│           ├── users.json
+│           ├── sessions.json
+│           ├── registrations.json
+│           ├── evaluations.json
+│           └── awards.json
+```
+
+## Quick Start
+
+### Requirements
+- JDK 17 or higher
+- Maven 3.6+
+
+### Build and Run
+
+```bash
+# Clone the project
+git clone <repository-url>
+cd seminar-management-system
+
+# Compile the project
+mvn clean compile
+
+# Run the application
+mvn exec:java -Dexec.mainClass="com.fci.seminar.Main"
 
-The Faculty of Computing and Informatics (FCI) requires a standalone Java Swing–based Seminar Management System to manage its annual Postgraduate Academic Research Seminar.
-The system supports seminar scheduling, presenter registration, evaluation, award computation, and reporting, while ensuring transparency through a default Guest access mode.
+# Or package and run
+mvn clean package
+java -jar target/seminar-management-system-1.0-SNAPSHOT.jar
+```
 
-The system follows a role-based access control (RBAC) model with four roles:
+## Demo Accounts
 
-Guest (default, no login)
+| Role | Username | Password |
+|------|----------|----------|
+| Coordinator | admin | admin123 |
+| Evaluator | evaluator1 | password123 |
+| Student | student1 | password123 |
 
-Student (Presenter)
+## Core Features
 
-Evaluator (Panel Member)
+### 1. User Authentication
+- Multi-role login (Student/Evaluator/Coordinator)
+- Role-based access control (RBAC)
+- Session management
 
-Coordinator (Faculty Staff)
+### 2. Seminar Schedule
+- Calendar/list view display
+- Filter by date/type
+- Session status display (OPEN/FULL/CLOSED)
 
-2. Role Overview (Summary Table)
-Role	Login Required	Access Level	Main Purpose
-Guest	No	Read-only	View seminar schedule & slot availability
-Student	Yes	Limited write	Register & present research
-Evaluator	Yes	Controlled write	Evaluate assigned presenters
-Coordinator	Yes	Full control	Manage seminar & generate reports
-3. Guest Role (Default Mode)
-3.1 Description
+### 3. Student Registration
+- Submit research information (title, abstract, supervisor)
+- Select presentation type (Oral/Poster)
+- Registration status tracking
 
-Guest is the default role when the system is launched.
-It allows public users to view seminar-related information without authentication, improving transparency and accessibility.
+### 4. Material Upload
+- Supported formats: PPT, PPTX, PDF, PNG, JPG
+- File size limit: 50MB
+- File validation
 
-3.2 Permissions
+### 5. Evaluation System
+- Four-dimensional scoring criteria (Problem Clarity, Methodology, Results, Presentation Quality)
+- Each criterion: 0-25 points, total: 100 points
+- Draft saving and final submission
 
-Guest users can:
+### 6. Award Management
+- Best Oral Presentation
+- Best Poster Presentation
+- People's Choice Award
+- Automatic calculation with tie handling
 
-View upcoming seminar sessions
+### 7. Report Center
+- Registration statistics report
+- Evaluation summary report
+- Session attendance report
+- CSV data export
 
-View session details (date, venue, session type)
+## UI Design
 
-View slot availability (Open / Full / Closed / Requires Application)
+### Color Scheme
+- Primary: Academic Blue (#19376D)
+- Accent: #0AC2EF
+- Background: #F8F9FC
 
-Search or filter sessions by date or type
+### Custom Components
+- `StyledButton` - Button with hover effects
+- `StyledTextField` - Input field with placeholder
+- `StyledTable` - Zebra-striped table
+- `CardPanel` - Rounded shadow card
+- `StatusLabel` - Status indicator label
 
-Guest users cannot:
+## Data Storage
 
-Register for a seminar
+The system uses JSON files for data persistence via Gson library:
 
-Upload files
+- Auto-load data on startup
+- Auto-save data on shutdown
+- Supports Java 8 date/time types (LocalDate, LocalTime, LocalDateTime)
 
-View presenter evaluations or marks
+## Architecture
 
-Access internal reports or awards deliberation
+- **MVC Pattern** - Model/View/Controller separation
+- **Singleton Pattern** - Service layer uses singletons
+- **Repository Pattern** - Data access abstraction
 
-3.3 Modules Available
+## License
 
-Public Seminar Schedule Module
+MIT License
 
-Session Availability Viewer
+## Contributors
 
-4. Student Role (Presenter)
-4.1 Description
-
-The Student role represents postgraduate students who present their research during the seminar.
-
-4.2 Permissions
-
-Students can:
-
-Log in as Student
-
-Register for the seminar by providing:
-
-Research title
-
-Abstract
-
-Supervisor name
-
-Preferred presentation type (Oral / Poster)
-
-Select available seminar sessions (based on slot availability)
-
-Upload presentation materials (slides or poster file path)
-
-View their own registration status and assigned session
-
-Students cannot:
-
-Evaluate other students
-
-View evaluators’ marks or comments
-
-Manage sessions or assign evaluators
-
-4.3 Modules Available
-
-Student Registration Module
-
-Presentation Upload Module
-
-Personal Registration Status Viewer
-
-5. Evaluator Role (Panel Member)
-5.1 Description
-
-Evaluators are academic staff assigned to assess student presentations.
-
-5.2 Permissions
-
-Evaluators can:
-
-Log in as Evaluator
-
-View assigned presentations only
-
-Evaluate students using predefined rubrics:
-
-Problem Clarity
-
-Methodology
-
-Results
-
-Presentation Quality
-
-Assign marks for each criterion
-
-Add qualitative comments for presenters
-
-Submit and update evaluations before the deadline
-
-Evaluators cannot:
-
-View evaluations by other evaluators
-
-Modify seminar schedules
-
-Assign themselves to sessions
-
-View award results before finalization
-
-5.3 Modules Available
-
-Evaluation Module
-
-Assigned Presentation Viewer
-
-Rubric-Based Scoring Interface
-
-6. Coordinator Role (Faculty Staff)
-6.1 Description
-
-The Coordinator role has the highest authority and manages the overall seminar operation.
-
-6.2 Permissions
-
-Coordinators can:
-
-Log in as Coordinator
-
-Create and manage seminar sessions:
-
-Date
-
-Venue
-
-Session type (Oral / Poster)
-
-Time slots and capacity
-
-Assign students to sessions
-
-Assign evaluators to presentations
-
-Manage poster boards (board IDs and criteria)
-
-Generate seminar schedules
-
-Generate final evaluation reports
-
-Compute and manage awards:
-
-Best Oral Presentation
-
-Best Poster Presentation
-
-People’s Choice Award
-
-Approve or reject registrations if required
-
-6.3 Modules Available
-
-User Management Module
-
-Session Management Module
-
-Assignment Module (Student–Evaluator–Session)
-
-Award & Ceremony Module
-
-Reports & Summary Module
-
-7. System Modules Mapping to Roles
-Module	Guest	Student	Evaluator	Coordinator
-User Management	✗	✗	✗	✓
-Seminar Schedule View	✓	✓	✓	✓
-Session Management	✗	✗	✗	✓
-Registration	✗	✓	✗	✓
-File Upload	✗	✓	✗	✗
-Evaluation	✗	✗	✓	✓ (view only)
-Poster Board Management	✗	✗	✗	✓
-Award Management	✗	✗	✗	✓
-Reports & Analytics	✗	✗	✗	✓
-8. System Design Decision (Justification)
-
-Guest-first entry improves usability and transparency
-
-Role separation ensures:
-
-Data privacy
-
-Academic integrity
-
-Clear responsibility boundaries
-
-Read-only Guest access minimizes security risk
-
-Design aligns with real-world academic conference systems
-
-9. Conclusion
-
-The proposed Seminar Management System adopts a clear, scalable, and role-based design that supports academic presentation workflows while maintaining transparency and control.
-By introducing a default Guest role and enforcing strict permissions for authenticated users, the system ensures both accessibility and data security.
+FCI Seminar Team
