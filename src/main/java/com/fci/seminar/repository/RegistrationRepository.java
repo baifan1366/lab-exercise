@@ -229,6 +229,18 @@ public class RegistrationRepository {
         return null;
     }
     
+    /**
+     * Updates the board ID for a poster registration.
+     */
+    public Registration updateBoardId(Long id, String boardId) {
+        Registration registration = findById(id);
+        if (registration != null) {
+            registration.setBoardId(boardId);
+            return save(registration);
+        }
+        return null;
+    }
+    
     // ==================== Utility Methods ====================
     
     /**

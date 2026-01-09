@@ -197,24 +197,33 @@ public class SidebarPanel extends JPanel {
             this.selected = false;
             this.hovered = false;
             
-            setLayout(new FlowLayout(FlowLayout.LEFT, UIConstants.SPACING_SM, 0));
+            setLayout(new BorderLayout());
             setOpaque(false);
             setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
             setPreferredSize(new Dimension(UIConstants.SIDEBAR_WIDTH, 44));
             setCursor(new Cursor(Cursor.HAND_CURSOR));
-            setBorder(BorderFactory.createEmptyBorder(0, UIConstants.SPACING_MD, 0, UIConstants.SPACING_MD));
+            
+            // Content panel with proper spacing
+            JPanel contentPanel = new JPanel();
+            contentPanel.setLayout(new FlowLayout(FlowLayout.LEFT, UIConstants.SPACING_SM, 0));
+            contentPanel.setOpaque(false);
+            contentPanel.setBorder(BorderFactory.createEmptyBorder(
+                UIConstants.SPACING_SM, UIConstants.SPACING_MD, 
+                UIConstants.SPACING_SM, UIConstants.SPACING_MD));
             
             // Icon label
             JLabel iconLabel = new JLabel(icon);
             iconLabel.setFont(new Font("Segoe UI Emoji", Font.PLAIN, 16));
             iconLabel.setForeground(UIConstants.TEXT_LIGHT);
-            add(iconLabel);
+            contentPanel.add(iconLabel);
             
             // Text label
             JLabel textLabel = new JLabel(text);
             textLabel.setFont(UIConstants.MENU);
             textLabel.setForeground(UIConstants.TEXT_LIGHT);
-            add(textLabel);
+            contentPanel.add(textLabel);
+            
+            add(contentPanel, BorderLayout.CENTER);
             
             // Hover effect
             addMouseListener(new MouseAdapter() {
@@ -237,15 +246,17 @@ public class SidebarPanel extends JPanel {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             
+            int margin = UIConstants.SPACING_SM;
+            
             if (selected) {
                 g2.setColor(UIConstants.PRIMARY_LIGHT);
-                g2.fillRoundRect(UIConstants.SPACING_SM, 2, 
-                    getWidth() - UIConstants.SPACING_MD, getHeight() - 4, 
+                g2.fillRoundRect(margin, 2, 
+                    getWidth() - margin * 2, getHeight() - 4, 
                     UIConstants.RADIUS_SM, UIConstants.RADIUS_SM);
             } else if (hovered) {
                 g2.setColor(new Color(255, 255, 255, 20));
-                g2.fillRoundRect(UIConstants.SPACING_SM, 2, 
-                    getWidth() - UIConstants.SPACING_MD, getHeight() - 4, 
+                g2.fillRoundRect(margin, 2, 
+                    getWidth() - margin * 2, getHeight() - 4, 
                     UIConstants.RADIUS_SM, UIConstants.RADIUS_SM);
             }
             

@@ -281,6 +281,18 @@ public class StatusPanel extends JPanel implements MainFrame.Refreshable {
                 addDetailRow(content, "Session Type", typeText);
                 content.add(Box.createVerticalStrut(UIConstants.SPACING_XS));
                 
+                // Board ID (for poster presentations only)
+                if (currentRegistration.getPresentationType() == com.fci.seminar.model.enums.SessionType.POSTER) {
+                    String boardId = currentRegistration.getBoardId();
+                    if (boardId != null && !boardId.isEmpty()) {
+                        addDetailRow(content, "Board ID", boardId);
+                        content.add(Box.createVerticalStrut(UIConstants.SPACING_XS));
+                    } else {
+                        addDetailRow(content, "Board ID", "Not assigned yet");
+                        content.add(Box.createVerticalStrut(UIConstants.SPACING_XS));
+                    }
+                }
+                
                 // Description
                 if (session.getDescription() != null && !session.getDescription().isEmpty()) {
                     addDetailRow(content, "Description", session.getDescription());

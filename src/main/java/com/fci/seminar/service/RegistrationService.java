@@ -379,6 +379,31 @@ public class RegistrationService {
         return registrationRepository.updateFilePath(registrationId, filePath);
     }
     
+    /**
+     * Assigns a board ID to a poster presentation.
+     * @param registrationId the registration ID
+     * @param boardId the board ID (e.g., "B01", "B02")
+     * @return the updated registration
+     * @throws IllegalArgumentException if registration is not a poster type
+     */
+    public Registration assignBoardId(Long registrationId, String boardId) {
+        if (registrationId == null) {
+            throw new IllegalArgumentException("Registration ID cannot be null");
+        }
+        
+        Registration registration = registrationRepository.findById(registrationId);
+        if (registration == null) {
+            throw new IllegalArgumentException("Registration not found: " + registrationId);
+        }
+        
+        // Only poster presentations can have board IDs
+        if (registration.getPresentationType() != com.fci.seminar.model.enums.SessionType.POSTER) {
+            throw new IllegalArgumentException("Board ID can only be assigned to poster presentations");
+        }
+        
+        return registrationRepository.updateBoardId(registrationId, boardId);
+    }
+    
     // ==================== Statistics ====================
     
     /**

@@ -128,6 +128,7 @@ java -jar target/seminar-management-system-1.0-SNAPSHOT.jar
 ### 3. Student Registration
 - Submit research information (title, abstract, supervisor)
 - Select presentation type (Oral/Poster)
+- Board ID assignment for poster presentations
 - Registration status tracking
 
 ### 4. Material Upload
@@ -142,9 +143,10 @@ java -jar target/seminar-management-system-1.0-SNAPSHOT.jar
 
 ### 6. Award Management
 - Best Oral Presentation
-- Best Poster Presentation
+- Best Poster Presentation  
 - People's Choice Award
 - Automatic calculation with tie handling
+- Award ceremony agenda generation
 
 ### 7. Report Center
 - Registration statistics report

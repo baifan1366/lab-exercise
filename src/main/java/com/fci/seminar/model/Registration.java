@@ -22,6 +22,7 @@ public class Registration {
     private SessionType presentationType;
     private RegistrationStatus status;
     private String filePath;
+    private String boardId;  // For poster presentations - board assignment
     private LocalDateTime createdAt;
 
     public Registration() {
@@ -132,6 +133,14 @@ public class Registration {
         this.filePath = filePath;
     }
 
+    public String getBoardId() {
+        return boardId;
+    }
+
+    public void setBoardId(String boardId) {
+        this.boardId = boardId;
+    }
+
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
@@ -154,13 +163,14 @@ public class Registration {
                presentationType == that.presentationType &&
                status == that.status &&
                Objects.equals(filePath, that.filePath) &&
+               Objects.equals(boardId, that.boardId) &&
                Objects.equals(createdAt, that.createdAt);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, studentId, sessionId, researchTitle, abstractText,
-                supervisorName, presentationType, status, filePath, createdAt);
+                supervisorName, presentationType, status, filePath, boardId, createdAt);
     }
 
     @Override
@@ -172,6 +182,7 @@ public class Registration {
                ", researchTitle='" + researchTitle + '\'' +
                ", presentationType=" + presentationType +
                ", status=" + status +
+               ", boardId='" + boardId + '\'' +
                ", createdAt=" + createdAt +
                '}';
     }

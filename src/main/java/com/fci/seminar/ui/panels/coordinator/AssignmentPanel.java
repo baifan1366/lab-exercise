@@ -14,6 +14,7 @@ import com.fci.seminar.ui.MainFrame;
 import com.fci.seminar.ui.components.CardPanel;
 import com.fci.seminar.ui.components.StyledButton;
 import com.fci.seminar.ui.components.StyledTable;
+import com.fci.seminar.ui.dialogs.BoardAssignmentDialog;
 import com.fci.seminar.util.UIConstants;
 
 import javax.swing.*;
@@ -51,6 +52,10 @@ public class AssignmentPanel extends JPanel implements MainFrame.Refreshable {
     private StyledTable assignmentMatrixTable;
     private DefaultTableModel assignmentMatrixModel;
     
+    // Board assignment components
+    private StyledTable posterRegistrationsTable;
+    private DefaultTableModel posterRegistrationsModel;
+    
     /**
      * Creates the assignment panel.
      */
@@ -76,6 +81,7 @@ public class AssignmentPanel extends JPanel implements MainFrame.Refreshable {
         tabbedPane.setFont(UIConstants.BODY_BOLD);
         tabbedPane.addTab("Student-Session Assignment", createStudentSessionPanel());
         tabbedPane.addTab("Evaluator-Presentation Assignment", createEvaluatorPresentationPanel());
+        tabbedPane.addTab("Poster Board Assignment", createBoardAssignmentPanel());
         
         add(tabbedPane, BorderLayout.CENTER);
     }
@@ -232,6 +238,55 @@ public class AssignmentPanel extends JPanel implements MainFrame.Refreshable {
         
         return card;
     }
+    
+    private JPanel createBoardAssignmentPanel() {
+        CardPanel card = new CardPanel();
+        JPanel content = card.getContentPanel();
+        content.setLayout(new BorderLayout(UIConstants.SPACING_MD, UIConstants.SPACING_MD));
+        
+        // Info panel
+        JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        infoPanel.setOpaque(false);
+        
+        JLabel infoLabel = new JLabel("Assign exhibition board IDs to poster presentations");
+        infoLabel.setFont(UIConstants.BODY);
+        infoLabel.setForeground(UIConstants.TEXT_SECONDARY);
+        infoPanel.add(infoLabel);
+        
+        content.add(infoPanel, BorderLayout.NORTH);
+        
+        // Poster registrations table
+        String[] columns = {"ID", "Student", "Research Title", "Session", "Board ID", "Status"};
+        posterRegistrationsModel = new DefaultTableModel(columns, 0) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        posterRegistrationsTable = new StyledTable(posterRegistrationsModel);
+        posterRegistrationsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        JScrollPane scrollPane = new JScrollPane(posterRegistrationsTable);
+        scrollPane.setBorder(BorderFactory.createTitledBorder("Poster Presentations"));
+        
+        content.add(scrollPane, BorderLayout.CENTER);
+        
+        // Button panel
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, UIConstants.SPACING_SM, 0));
+        buttonPanel.setOpaque(false);
+        
+        StyledButton assignBoardBtn = StyledButton.primary("Assign Board");
+        assignBoardBtn.addActionListener(e -> assignBoardToSelected());
+        buttonPanel.add(assignBoardBtn);
+        
+        StyledButton clearBoardBtn = StyledButton.secondary("Clear Board");
+        clearBoardBtn.addActionListener(e -> clearBoardFromSelected());
+        buttonPanel.add(clearBoardBtn);
+        
+        content.add(buttonPanel, BorderLayout.SOUTH);
+        
+        return card;
+    }
 
     
     private void loadData() {
@@ -240,6 +295,7 @@ public class AssignmentPanel extends JPanel implements MainFrame.Refreshable {
         loadApprovedRegistrations();
         loadEvaluators();
         loadAssignmentMatrix();
+        loadPosterRegistrations();
     }
     
     private void loadSessions() {
@@ -329,6 +385,36 @@ public class AssignmentPanel extends JPanel implements MainFrame.Refreshable {
         }
     }
     
+    private void loadPosterRegistrations() {
+        posterRegistrationsModel.setRowCount(0);
+        
+        List<Registration> registrations = registrationService.getAllRegistrations();
+        for (Registration reg : registrations) {
+            // Only show poster presentations
+            if (reg.getPresentationType() == com.fci.seminar.model.enums.SessionType.POSTER) {
+                String studentName = getStudentName(reg.getStudentId());
+                String sessionInfo = getSessionInfo(reg.getSessionId());
+                String boardId = reg.getBoardId() != null ? reg.getBoardId() : "Not Assigned";
+                
+                posterRegistrationsModel.addRow(new Object[]{
+                    reg.getId(),
+                    studentName,
+                    truncateText(reg.getResearchTitle(), 40),
+                    sessionInfo,
+                    boardId,
+                    reg.getStatus().name()
+                });
+            }
+        }
+    }
+    
+    private String getSessionInfo(Long sessionId) {
+        if (sessionId == null) return "Not Assigned";
+        Session session = sessionService.getSessionById(sessionId);
+        if (session == null) return "Unknown";
+        return session.getDate().format(DATE_FORMATTER) + " " + session.getVenue();
+    }
+    
     private void assignSelectedStudentToSession() {
         int selectedRow = unassignedStudentsTable.getSelectedRow();
         if (selectedRow < 0) {
@@ -403,6 +489,93 @@ public class AssignmentPanel extends JPanel implements MainFrame.Refreshable {
         if (confirm == JOptionPane.YES_OPTION) {
             evaluationService.removeAssignment(evaluatorId, registrationId);
             loadAssignmentMatrix();
+        }
+    }
+    
+    private void assignBoardToSelected() {
+        int selectedRow = posterRegistrationsTable.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this,
+                "Please select a poster presentation to assign a board.",
+                "No Selection",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Long registrationId = (Long) posterRegistrationsModel.getValueAt(selectedRow, 0);
+        Registration registration = registrationService.getRegistrationById(registrationId);
+        
+        if (registration == null) {
+            JOptionPane.showMessageDialog(this,
+                "Registration not found.",
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        // Show board assignment dialog
+        String boardId = BoardAssignmentDialog.showDialog(
+            (JFrame) SwingUtilities.getWindowAncestor(this),
+            registration
+        );
+        
+        if (boardId != null) {
+            try {
+                registrationService.assignBoardId(registrationId, boardId);
+                JOptionPane.showMessageDialog(this,
+                    "Board " + boardId + " assigned successfully.",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+                loadPosterRegistrations();
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(this,
+                    e.getMessage(),
+                    "Assignment Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    private void clearBoardFromSelected() {
+        int selectedRow = posterRegistrationsTable.getSelectedRow();
+        if (selectedRow < 0) {
+            JOptionPane.showMessageDialog(this,
+                "Please select a poster presentation to clear board assignment.",
+                "No Selection",
+                JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        
+        Long registrationId = (Long) posterRegistrationsModel.getValueAt(selectedRow, 0);
+        String currentBoard = (String) posterRegistrationsModel.getValueAt(selectedRow, 4);
+        
+        if ("Not Assigned".equals(currentBoard)) {
+            JOptionPane.showMessageDialog(this,
+                "This presentation has no board assigned.",
+                "No Board",
+                JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        
+        int confirm = JOptionPane.showConfirmDialog(this,
+            "Clear board assignment (" + currentBoard + ")?",
+            "Confirm Clear",
+            JOptionPane.YES_NO_OPTION);
+        
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                registrationService.assignBoardId(registrationId, null);
+                JOptionPane.showMessageDialog(this,
+                    "Board assignment cleared.",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+                loadPosterRegistrations();
+            } catch (IllegalArgumentException e) {
+                JOptionPane.showMessageDialog(this,
+                    e.getMessage(),
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
         }
     }
     

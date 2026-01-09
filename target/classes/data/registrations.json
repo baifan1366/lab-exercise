@@ -32,6 +32,7 @@
       "supervisorName": "Prof. Chen Hua",
       "presentationType": "POSTER",
       "status": "APPROVED",
+      "boardId": "B01",
       "createdAt": "2024-12-03T09:45:00"
     },
     {
@@ -43,6 +44,7 @@
       "supervisorName": "Prof. Li Wei",
       "presentationType": "POSTER",
       "status": "PENDING",
+      "boardId": "B02",
       "createdAt": "2024-12-05T16:20:00"
     },
     {
