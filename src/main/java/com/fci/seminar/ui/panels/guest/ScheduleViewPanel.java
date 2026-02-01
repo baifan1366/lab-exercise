@@ -185,18 +185,30 @@ public class ScheduleViewPanel extends JPanel implements MainFrame.Refreshable {
         // Parse date filter
         String selectedDate = (String) dateFilterCombo.getSelectedItem();
         if (selectedDate != null && !"All Dates".equals(selectedDate)) {
-            dateFilter = LocalDate.parse(selectedDate, DATE_FORMATTER);
+            try {
+                dateFilter = LocalDate.parse(selectedDate, DATE_FORMATTER);
+            } catch (Exception e) {
+                // Invalid date format, ignore filter
+            }
         }
         
         // Parse type filter
         String selectedType = (String) typeFilterCombo.getSelectedItem();
         if (selectedType != null && !"All Types".equals(selectedType)) {
-            typeFilter = SessionType.valueOf(selectedType.toUpperCase());
+            try {
+                typeFilter = SessionType.valueOf(selectedType.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                // Invalid type, ignore filter
+            }
         }
         
         // Get filtered sessions
         List<Session> filteredSessions = sessionService.filterSessions(dateFilter, typeFilter);
         displaySessions(filteredSessions);
+        
+        // Revalidate and repaint to ensure UI updates
+        sessionListPanel.revalidate();
+        sessionListPanel.repaint();
     }
     
     private void displaySessions(List<Session> sessions) {

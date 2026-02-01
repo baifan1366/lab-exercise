@@ -9,6 +9,7 @@ import javax.swing.*;
 /**
  * Custom styled text field with placeholder support and focus state styling.
  * Displays placeholder text when empty and not focused.
+ * Automatically clears placeholder when user starts typing.
  */
 public class StyledTextField extends JTextField {
     
@@ -51,7 +52,7 @@ public class StyledTextField extends JTextField {
         
         // Show placeholder initially
         if (placeholder != null && !placeholder.isEmpty()) {
-            setText(placeholder);
+            super.setText(placeholder);
             setForeground(UIConstants.TEXT_MUTED);
         }
         
@@ -75,6 +76,18 @@ public class StyledTextField extends JTextField {
                     showingPlaceholder = true;
                 }
                 updateBorder(normalBorderColor);
+            }
+        });
+        
+        // Add key listener to clear placeholder on first key press
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (showingPlaceholder && !Character.isISOControl(e.getKeyChar())) {
+                    StyledTextField.super.setText("");
+                    setForeground(UIConstants.TEXT_PRIMARY);
+                    showingPlaceholder = false;
+                }
             }
         });
     }

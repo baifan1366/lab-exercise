@@ -147,10 +147,26 @@ public class Main {
                 
             // Evaluator panels
             case "ASSIGNED_LIST":
-                mainFrame.switchToPanel("ASSIGNED_LIST", AssignedListPanel::new);
+                mainFrame.switchToPanel("ASSIGNED_LIST", () -> {
+                    AssignedListPanel panel = new AssignedListPanel();
+                    panel.setNavigationHandler(evaluationId -> {
+                        // Navigate to evaluation panel with the specific evaluation
+                        mainFrame.switchToPanel("EVALUATION", () -> {
+                            EvaluationPanel evalPanel = new EvaluationPanel();
+                            evalPanel.setBackHandler(() -> handleMenuAction("ASSIGNED_LIST"));
+                            evalPanel.loadEvaluation(evaluationId);
+                            return evalPanel;
+                        });
+                    });
+                    return panel;
+                });
                 break;
             case "EVALUATION":
-                mainFrame.switchToPanel("EVALUATION", EvaluationPanel::new);
+                mainFrame.switchToPanel("EVALUATION", () -> {
+                    EvaluationPanel panel = new EvaluationPanel();
+                    panel.setBackHandler(() -> handleMenuAction("ASSIGNED_LIST"));
+                    return panel;
+                });
                 break;
                 
             // Coordinator panels
@@ -167,14 +183,58 @@ public class Main {
             case "SESSION_MANAGEMENT":
                 mainFrame.switchToPanel("SESSION_MANAGEMENT", SessionManagementPanel::new);
                 break;
+            case "REGISTRATION_MANAGEMENT":
+                // Registration management is handled through Assignment panel
+                mainFrame.switchToPanel("ASSIGNMENT", AssignmentPanel::new);
+                break;
+            case "ASSIGNMENTS":
+                mainFrame.switchToPanel("ASSIGNMENT", AssignmentPanel::new);
+                break;
             case "ASSIGNMENT":
                 mainFrame.switchToPanel("ASSIGNMENT", AssignmentPanel::new);
+                break;
+            case "EVALUATIONS_VIEW":
+                // Evaluations view - show evaluation management panel
+                mainFrame.switchToPanel("EVALUATIONS_VIEW", () -> {
+                    // Create a panel to view all evaluations
+                    JPanel panel = new JPanel(new BorderLayout());
+                    panel.setOpaque(false);
+                    JLabel label = new JLabel("Evaluation Management - Coming Soon");
+                    label.setFont(UIConstants.TITLE_MEDIUM);
+                    label.setHorizontalAlignment(SwingConstants.CENTER);
+                    panel.add(label, BorderLayout.CENTER);
+                    return panel;
+                });
                 break;
             case "AWARDS":
                 mainFrame.switchToPanel("AWARDS", AwardPanel::new);
                 break;
             case "REPORTS":
                 mainFrame.switchToPanel("REPORTS", ReportPanel::new);
+                break;
+            case "SETTINGS":
+                // Settings panel - placeholder
+                mainFrame.switchToPanel("SETTINGS", () -> {
+                    JPanel panel = new JPanel(new BorderLayout());
+                    panel.setOpaque(false);
+                    JLabel label = new JLabel("Settings - Coming Soon");
+                    label.setFont(UIConstants.TITLE_MEDIUM);
+                    label.setHorizontalAlignment(SwingConstants.CENTER);
+                    panel.add(label, BorderLayout.CENTER);
+                    return panel;
+                });
+                break;
+            case "PROFILE":
+                // Profile panel for all logged-in users
+                mainFrame.switchToPanel("PROFILE", () -> {
+                    JPanel panel = new JPanel(new BorderLayout());
+                    panel.setOpaque(false);
+                    JLabel label = new JLabel("User Profile - Coming Soon");
+                    label.setFont(UIConstants.TITLE_MEDIUM);
+                    label.setHorizontalAlignment(SwingConstants.CENTER);
+                    panel.add(label, BorderLayout.CENTER);
+                    return panel;
+                });
                 break;
                 
             default:

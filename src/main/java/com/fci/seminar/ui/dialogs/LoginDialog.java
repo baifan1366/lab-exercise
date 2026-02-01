@@ -42,7 +42,7 @@ public class LoginDialog extends JDialog {
     }
     
     private void initDialog() {
-        setSize(400, 380);
+        setSize(450, 450);
         setLocationRelativeTo(getParent());
         setResizable(false);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
